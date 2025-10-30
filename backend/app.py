@@ -1,3 +1,4 @@
+#./backend/app.py
 from flask import Flask
 from dotenv import load_dotenv
 from flask_cors import CORS
@@ -24,9 +25,9 @@ load_dotenv()
 app = Flask(__name__)
 
 # Allow frontend hosted on Render or localhost to access backend
-CORS(app, resources={r"/*": {"origins": [
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": [
     "http://localhost:3000",
-    "https://med-ai-liard.vercel.app/"
+    "https://med-ai-liard.vercel.app"
 ]}})
 
 # Register blueprints
