@@ -27,10 +27,13 @@ export default function ReportAnalyser() {
 
     setLoading(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/report-analyser`, {
-        method: "POST",
-        body: formData,
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/report-analyser`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
       const data = await res.json();
       setAnalysis(data.analysis);
     } catch (err) {
@@ -108,16 +111,18 @@ export default function ReportAnalyser() {
                   }
 
                   // Bold any **word** inside sentences
-                  const parts = trimmed.split(/(\*\*.*?\*\*)/g).map((part, i) => {
-                    if (part.startsWith("**") && part.endsWith("**")) {
-                      return (
-                        <strong key={i}>
-                          {part.replace(/\*\*/g, "").trim()}
-                        </strong>
-                      );
-                    }
-                    return part;
-                  });
+                  const parts = trimmed
+                    .split(/(\*\*.*?\*\*)/g)
+                    .map((part, i) => {
+                      if (part.startsWith("**") && part.endsWith("**")) {
+                        return (
+                          <strong key={i}>
+                            {part.replace(/\*\*/g, "").trim()}
+                          </strong>
+                        );
+                      }
+                      return part;
+                    });
 
                   return <p key={index}>{parts}</p>;
                 })}

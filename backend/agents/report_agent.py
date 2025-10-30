@@ -74,8 +74,6 @@ Your tone must always be:
 - Supportive, kind, and encouraging.
 - Focused on making the patient feel hopeful and capable of improving their health.
 - Avoid overly technical jargon; always explain in plain words.
-
-if the report is not a medical report, politely answer that you are not sure about the analysis of this report, try to upload a medical report
 """
 
     prompt = ChatPromptTemplate.from_messages([
