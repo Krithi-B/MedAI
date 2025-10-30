@@ -12,7 +12,7 @@ export default function MotivationalQuotes() {
   const fetchQuote = async () => {
     setLoadingQuote(true);
     try {
-      const res = await fetch("http://localhost:5000/api/motivation");
+      const res = await  fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/motivation`);
       const data = await res.json();
       setQuote(data.quote);
     } catch {
