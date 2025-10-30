@@ -26,7 +26,7 @@ app = Flask(__name__)
 # Allow frontend hosted on Render or localhost to access backend
 CORS(app, resources={r"/*": {"origins": [
     "http://localhost:3000",
-    "https://medai-frontend.vercel.app"
+    "https://med-ai-liard.vercel.app/"
 ]}})
 
 # Register blueprints
