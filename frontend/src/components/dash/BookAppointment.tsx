@@ -19,7 +19,6 @@ export default function BookAppointment({ appointmentId, onAppointmentSaved }: P
   const [error, setError] = useState("");
 
   const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
-
   const timeSlots = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
 
   // Fetch existing appointment if editing
@@ -87,7 +86,6 @@ export default function BookAppointment({ appointmentId, onAppointmentSaved }: P
 
       // Trigger refresh in Dashboard
       if (onAppointmentSaved) onAppointmentSaved();
-
       // Clear form
       setHospitalName("");
       setDate("");

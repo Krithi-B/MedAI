@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ClipboardClock, Pencil, Trash2 } from "lucide-react";
+import BookAppointment from "../dash/BookAppointment";
+import { Button } from "../ui/button";
 
 type Appointment = {
   _id: string;
@@ -16,15 +18,22 @@ type Appointment = {
 
 export default function AppointmentsSection() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [selectedAppointmentId, setSelectedAppointmentId] = useState<
+    string | null
+  >(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   const fetchAppointments = async () => {
     const token = localStorage.getItem("token");
     if (!token) return;
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointment`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointment`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       if (!res.ok) throw new Error();
       const data = await res.json();
       setAppointments(data.appointments || []);
@@ -36,6 +45,83 @@ export default function AppointmentsSection() {
   useEffect(() => {
     fetchAppointments();
   }, []);
+
+  const handleEdit = (id: string) => {
+    setSelectedAppointmentId(id);
+    setIsEditing(true);
+  };
+
+  const handleDelete = async (id: string) => {
+    const token = localStorage.getItem("token");
+    if (!token) return toast.error("Unauthorized");
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointment/${id}`,
+        {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (!res.ok) throw new Error("Failed to delete");
+
+      setAppointments((prev) => prev.filter((a) => a._id !== id));
+      toast.success("Appointment deleted successfully!");
+    } catch {
+      toast.error("Failed to delete appointment");
+    }
+  };
+
+  // callback to refresh list when edit is done
+  const handleAppointmentSaved = () => {
+    setIsEditing(false);
+    setSelectedAppointmentId(null);
+    fetchAppointments();
+  };
+
+  const confirmDelete = (id: string) => {
+    toast.custom(
+      (t) => (
+        <div className="bg-white shadow-xl rounded-lg p-5 border border-slate-200 flex flex-col items-center gap-3 w-80">
+          <p className="text-slate-800 font-semibold text-center">
+            Delete this appointment?
+          </p>
+
+          <div className="flex gap-3 mt-2">
+            <Button
+              onClick={() => {
+                toast.dismiss(t.id);
+                handleDelete(id);
+              }}
+              className="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded-md"
+            >
+              OK
+            </Button>
+
+            <Button
+              onClick={() => toast.dismiss(t.id)}
+              className="bg-gray-300 hover:bg-gray-400 text-black px-4 py-1 rounded-md"
+            >
+              Cancel
+            </Button>
+          </div>
+        </div>
+      ),
+      {
+        duration: Infinity, // stays until user clicks something
+      }
+    );
+  };
+
+  if (isEditing) {
+    return (
+      <BookAppointment
+        appointmentId={selectedAppointmentId}
+        onAppointmentSaved={handleAppointmentSaved}
+      />
+    );
+  }
 
   return (
     <Card className="shadow-md border bg-white relative w-full">
@@ -104,14 +190,20 @@ export default function AppointmentsSection() {
                               </span>
 
                               <div className="flex gap-3 mt-3">
-                                <div className="flex-1 text-center text-white bg-sky-600 rounded-md py-1.5 cursor-pointer hover:bg-sky-700 transition">
+                                <div
+                                  onClick={() => handleEdit(_id)}
+                                  className="flex-1 text-center text-white bg-sky-600 rounded-md py-1.5 cursor-pointer hover:bg-sky-700 transition"
+                                >
                                   <div className="flex items-center justify-center gap-2">
                                     <Pencil className="w-4 h-4" />
                                     <p>Edit</p>
                                   </div>
                                 </div>
 
-                                <div className="flex-1 text-center text-white bg-red-600 rounded-md py-1.5 cursor-pointer hover:bg-red-700 transition">
+                                <div
+                                  onClick={() => confirmDelete(_id)}
+                                  className="flex-1 text-center text-white bg-red-600 rounded-md py-1.5 cursor-pointer hover:bg-red-700 transition"
+                                >
                                   <div className="flex items-center justify-center gap-2">
                                     <Trash2 className="w-4 h-4" />
                                     <p>Delete</p>
