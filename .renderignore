@@ -1,0 +1,18 @@
+# Ignore frontend during backend deployment
+frontend/
+
+# Ignore unnecessary files
+.vscode/
+.idea/
+*.log
+*.zip
+*.rar
+*.tar.gz
+
+# Ignore version control files
+.git/
+.gitignore
+
+# Ignore documentation and local configs
+README.md
+LICENSE

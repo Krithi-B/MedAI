@@ -1,0 +1,10 @@
+{
+  "name": "medai",
+  "private": true,
+  "scripts": {
+    "both": "concurrently \"cd frontend && npm run dev\" \"cd backend && python app.py run --reload\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
