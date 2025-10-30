@@ -7,7 +7,7 @@ from langchain_core.prompts import ChatPromptTemplate
 
 load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+pytesseract.pytesseract.tesseract_cmd = r"C:/Program Files/Tesseract-OCR/tesseract.exe"
 
 def analyze_tablet_image(input_path: str):
     try:
