@@ -29,7 +29,7 @@ export default function Diagnosis() {
       }
 
       try {
-        const res = await fetch("http://localhost:5000/api/user/profile", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) throw new Error("Failed to fetch profile");
@@ -56,7 +56,7 @@ export default function Diagnosis() {
       try {
         setLoading(true);
         const token = localStorage.getItem("token");
-        const res = await fetch("http://localhost:5000/api/diagnosis", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/diagnosis`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -36,7 +36,7 @@ export default function FaqWidget({ containerId }: Props) {
       }
 
       try {
-        const res = await fetch("http://localhost:5000/api/faqs", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/faqs`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ content: containerText }),

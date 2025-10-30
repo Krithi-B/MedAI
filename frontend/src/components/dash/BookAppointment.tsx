@@ -31,7 +31,7 @@ export default function BookAppointment({ appointmentId, onAppointmentSaved }: P
 
     if (appointmentId) {
       setLoading(true);
-      fetch("http://localhost:5000/api/appointment", {
+      fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointment`, {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then((res) => res.json())
@@ -63,8 +63,8 @@ export default function BookAppointment({ appointmentId, onAppointmentSaved }: P
 
     const method = appointmentId ? "PUT" : "POST";
     const url = appointmentId
-      ? `http://localhost:5000/api/appointment/${appointmentId}`
-      : "http://localhost:5000/api/appointment";
+      ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointment/${appointmentId}`
+      : `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointment`;
 
     try {
       const res = await fetch(url, {

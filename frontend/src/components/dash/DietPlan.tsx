@@ -22,7 +22,7 @@ export default function DietPlan() {
       }
 
       try {
-        const res = await fetch("http://localhost:5000/api/user/profile", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/profile`, {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -45,7 +45,7 @@ export default function DietPlan() {
       setLoading(true);
       try {
         const res = await fetch(
-          `http://localhost:5000/api/dietplan?name=${encodeURIComponent(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dietplan?name=${encodeURIComponent(
             fetchedName
           )}&email=${encodeURIComponent(fetchedEmail)}`
         );

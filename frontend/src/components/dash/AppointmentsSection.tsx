@@ -22,7 +22,7 @@ export default function AppointmentsSection() {
     if (!token) return;
 
     try {
-      const res = await fetch("http://localhost:5000/api/appointment", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/appointment`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) throw new Error();

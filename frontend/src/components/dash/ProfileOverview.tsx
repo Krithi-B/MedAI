@@ -23,7 +23,7 @@ export default function ProfileOverview() {
     if (!token) return;
 
     try {
-      const res = await fetch("http://localhost:5000/api/user", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });

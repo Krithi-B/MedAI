@@ -27,7 +27,7 @@ export default function ReportAnalyser() {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/report-analyser", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/report-analyser`, {
         method: "POST",
         body: formData,
       });

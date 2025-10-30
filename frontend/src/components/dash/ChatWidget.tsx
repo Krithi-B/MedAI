@@ -33,7 +33,7 @@ export default function ChatWidget() {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        const res = await fetch("http://localhost:5000/api/user", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data: { email?: string; user?: { email?: string } } =
@@ -66,7 +66,7 @@ export default function ChatWidget() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:5000/api/chatbot/message", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/chatbot/message`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

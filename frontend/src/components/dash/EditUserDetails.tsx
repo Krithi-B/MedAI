@@ -44,7 +44,7 @@ export default function EditUserDetails() {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:5000/api/user/profile", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await response.json();
@@ -110,7 +110,7 @@ export default function EditUserDetails() {
         current_symptom: formData.symptoms,
       };
 
-      const response = await fetch("http://localhost:5000/api/user/update", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user/update`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

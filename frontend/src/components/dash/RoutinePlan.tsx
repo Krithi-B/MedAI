@@ -29,7 +29,7 @@ export default function RoutinePlan() {
 
     const fetchUserDetails = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/user", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/user`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ export default function RoutinePlan() {
         setUserLoading(false);
 
         const routineRes = await fetch(
-          `http://localhost:5000/api/routine?name=${encodeURIComponent(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/routine?name=${encodeURIComponent(
             user.username
           )}&email=${encodeURIComponent(user.email)}`
         );
