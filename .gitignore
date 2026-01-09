@@ -16,9 +16,14 @@ ENV/
 .venv/
 .ENV/
 
-# Local environment files
-*.env
-.env.*
+# Ignore real environment files
+.env
+.env.local
+
+# Allow example env files (explicit paths)
+!.env.example
+!backend/.env.example
+!frontend/.env.local.example
 
 # Byte-compiled / cache folders
 **/__pycache__/
