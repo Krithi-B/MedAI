@@ -66,3 +66,8 @@ desktop.ini
 *.zip
 *.tar.gz
 *.rar
+
+#Images
+*.jpg
+*.jpeg
+*.png
