@@ -103,7 +103,7 @@ export default function BookAppointment({ appointmentId, onAppointmentSaved }: P
     <div className="p-2 space-y-3 ">
       <h2 className="text-4xl text-sky-700 font-bold mb-4">
         {" "}
-        {appointmentId ? "Edit Appointment" : "Book Appointment"}
+        {appointmentId ? "Edit Appointment" : "Note Appointment"}
       </h2>
       <Card className="w-full shadow bg-white p-6 ">
         <CardContent>
